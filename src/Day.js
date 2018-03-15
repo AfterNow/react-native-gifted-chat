@@ -11,15 +11,24 @@ import { isSameDay, isSameUser, warnDeprecated } from './utils';
 import { DATE_FORMAT } from './Constant';
 
 export default function Day(
-  { dateFormat, currentMessage, previousMessage, containerStyle, wrapperStyle, textStyle },
+  { dateFormat, currentMessage, previousMessage, containerStyle, wrapperStyle, textStyle, inverted },
   context,
 ) {
-  if (!isSameDay(currentMessage, previousMessage)) {
+
+  let firstMessage, secondMessage;
+  if (inverted) {
+    firstMessage = previousMessage;
+    secondMessage = currentMessage;
+  } else {
+    firstMessage = currentMessage;
+    secondMessage = previousMessage;
+  }
+  if (!isSameDay(firstMessage, secondMessage)) {
     return (
       <View style={[styles.container, containerStyle]}>
         <View style={wrapperStyle}>
           <Text style={[styles.text, textStyle]}>
-            {moment(currentMessage.createdAt)
+            {moment(firstMessage.createdAt)
               .locale(context.getLocale())
               .format(dateFormat)
               .toUpperCase()}
@@ -63,6 +72,7 @@ Day.defaultProps = {
   isSameDay: warnDeprecated(isSameDay),
   isSameUser: warnDeprecated(isSameUser),
   dateFormat: DATE_FORMAT,
+  inverted: false,
 };
 
 Day.propTypes = {
@@ -75,4 +85,5 @@ Day.propTypes = {
   isSameDay: PropTypes.func,
   isSameUser: PropTypes.func,
   dateFormat: PropTypes.string,
+  inverted: PropTypes.bool,
 };
