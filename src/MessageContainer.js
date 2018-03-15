@@ -142,6 +142,19 @@ export default class MessageContainer extends React.Component {
     );
   }
 
+  onContentSizeChange(contentWidth, contentHeight) {
+    this.setState({
+        contentWidth,
+        contentHeight
+    });
+  }
+
+  onLayout(e) {
+    this.setState({
+        layout: e.nativeEvent.layout,
+    })
+  }
+
   render() {
     const contentContainerStyle = this.props.inverted
       ? {}
@@ -150,6 +163,8 @@ export default class MessageContainer extends React.Component {
     return (
       <View ref="container" style={styles.container}>
         <ListView
+          onLayout={this.onLayout.bind(this)}
+          onContentSizeChange={this.onContentSizeChange.bind(this)}
           enableEmptySections
           automaticallyAdjustContentInsets={false}
           initialListSize={20}

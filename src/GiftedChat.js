@@ -296,9 +296,15 @@ class GiftedChat extends React.Component {
 
   scrollToBottom(animated = true) {
     if (this._messageContainerRef === null) {
-      return;
+        return;
     }
-    this._messageContainerRef.scrollTo({ y: 0, animated });
+    if (this.props.scrollInverted) {
+        const scrollHeight = this._messageContainerRef.state.contentHeight -
+            this._messageContainerRef.state.layout.height;
+        this._messageContainerRef.scrollTo({ y: scrollHeight, animated });
+    } else {
+        this._messageContainerRef.scrollTo({ y: 0, animated });
+    }
   }
 
 
@@ -558,6 +564,7 @@ GiftedChat.defaultProps = {
   forceGetKeyboardHeight: false,
   inverted: true,
   headerInverted: false,
+  scrollInverted: false,
 };
 
 GiftedChat.propTypes = {
@@ -608,6 +615,7 @@ GiftedChat.propTypes = {
   forceGetKeyboardHeight: PropTypes.bool,
   inverted: PropTypes.bool,
   headerInverted: PropTypes.bool,
+  scrollInverted: PropTypes.bool,
   textInputProps: PropTypes.object,
 };
 
