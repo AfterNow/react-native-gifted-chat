@@ -161,7 +161,10 @@ export default class MessageContainer extends React.Component {
       : styles.notInvertedContentContainerStyle;
 
     return (
-      <View ref="container" style={styles.container}>
+      <View
+          ref="container"
+          style={styles.container}
+      >
         <ListView
           onLayout={this.onLayout.bind(this)}
           onContentSizeChange={this.onContentSizeChange.bind(this)}
