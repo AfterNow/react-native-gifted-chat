@@ -164,6 +164,7 @@ export default class MessageContainer extends React.Component {
       <View
           ref="container"
           style={styles.container}
+          collapsable={false}
       >
         <ListView
           onLayout={this.onLayout.bind(this)}
