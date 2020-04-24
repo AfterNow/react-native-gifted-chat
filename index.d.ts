@@ -5,11 +5,11 @@ import {
   TextInputProperties,
   TextInput,
   ImageStyle,
-  ListView,
-  ListViewProperties,
   ImageProperties,
   TextProperties
 } from "react-native";
+
+import ListView, ListViewProperties from 'deprecated-react-native-listview';
 
 declare module "react-native-gifted-chat" {
   interface LeftRightStyle<T> {
